@@ -2,11 +2,30 @@ package resource
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/aws-cloudformation/cloudformation-cli-go-plugin/cfn/handler"
 	"github.com/rostislavgit/cloudformation-shipa/framework/internal/shipa"
 )
+
+func defaultPoolConfig(name string) *shipa.PoolConfig {
+	return &shipa.PoolConfig{
+		Name: name,
+		Resources: &shipa.PoolResources{
+			General: &shipa.PoolGeneral{
+				Setup: &shipa.PoolSetup{
+					Provisioner: "kubernetes",
+				},
+				Router: "traefik",
+				AppQuota: &shipa.PoolAppQuota{
+					Limit: "10",
+				},
+			},
+		},
+	}
+}
 
 // Create handles the Create event from the Cloudformation service.
 func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler.ProgressEvent, error) {
@@ -15,11 +34,11 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	err = client.CreatePoolConfig(context.Background(), &shipa.PoolConfig{
-		Name: *currentModel.Name,
-	})
+	framework := defaultPoolConfig(*currentModel.Name)
+	raw, _ := json.Marshal(framework)
+	err = client.CreatePoolConfig(context.Background(), framework)
 	if err != nil {
-		return handler.ProgressEvent{}, err
+		return handler.ProgressEvent{}, fmt.Errorf("ERR: %w. Payload: %s", err, string(raw))
 	}
 
 	return handler.ProgressEvent{
@@ -55,9 +74,7 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	err = client.UpdatePoolConfig(context.Background(), &shipa.PoolConfig{
-		Name: *currentModel.Name,
-	})
+	err = client.UpdatePoolConfig(context.Background(), defaultPoolConfig(*currentModel.Name))
 	if err != nil {
 		return handler.ProgressEvent{}, err
 	}
