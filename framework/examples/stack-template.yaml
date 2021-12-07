@@ -1,0 +1,7 @@
+Resources:
+  MyShipaFramework:
+    Type: Shipa::Framework::Item
+    Properties:
+      Name: my-aws-framework
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

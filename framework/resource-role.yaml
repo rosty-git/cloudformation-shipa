@@ -21,9 +21,11 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-              - Effect: Deny
+              - Effect: Allow
                 Action:
-                - "*"
+                - "kms:Decrypt"
+                - "secretsmanager:GetSecretValue"
+                - "ssm:GetParameter"
                 Resource: "*"
 Outputs:
   ExecutionRoleArn:

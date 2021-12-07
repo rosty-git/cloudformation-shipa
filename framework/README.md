@@ -42,7 +42,14 @@ Set default version
 $ aws cloudformation set-type-default-version \
   --type "RESOURCE" \
   --type-name "Shipa::Framework::Item" \
-  --version-id "00000005"
+  --version-id "00000007"
+```
+
+Deregister version
+```bash
+$ aws cloudformation deregister-type --type "RESOURCE" \
+  --type-name "Shipa::Framework::Item" \
+  --version-id "00000001"
 ```
 
 Describe registration type
@@ -57,8 +64,12 @@ $ aws cloudformation create-stack --region eu-west-1 \
   --template-body "file://stack.json" \
   --stack-name "shipa-3"
 
+aws cloudformation create-stack --region eu-west-1 \
+  --template-body "file://stack-template.yaml" \
+  --stack-name "shipa-4"
 ```
 
+Describe type
 ```bash
 $ aws cloudformation describe-type --type-name "Shipa::Framework::Item" --type RESOURCE
 ```
@@ -71,4 +82,12 @@ $ aws cloudformation describe-stacks --region eu-west-1
 List stack events
 ```bash
 $ aws cloudformation describe-stack-events --stack-name shipa > events.log
+```
+
+Create secret
+```bash
+$ aws secretsmanager create-secret --name ShipaToken \
+--description "Shipa token" \
+--secret-string <token>
+
 ```

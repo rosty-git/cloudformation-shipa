@@ -28,13 +28,13 @@
     ],
     "handlers": {
         "create": {
-            "permissions": [""]
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
         },
         "read": {
-            "permissions": [""]
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
         },
         "update": {
-            "permissions": [""]
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
         },
         "delete": {
             "permissions": [""]
