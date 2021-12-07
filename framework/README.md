@@ -64,6 +64,16 @@ $ aws cloudformation list-type-versions \
 
 ```
 
+
+Set default version
+
+```bash
+$ aws cloudformation set-type-default-version \
+  --type "RESOURCE" \
+  --type-name "Shipa::Framework::Item" \
+  --version-id "00000002"
+```
+
 Describe registration type
 ```bash
 $ aws cloudformation describe-type-registration \
@@ -87,5 +97,61 @@ $ aws cloudformation create-stack --region eu-west-1 \
   
   
 An error occurred (ValidationError) when calling the CreateStack operation: Template format error: Unrecognized resource types: [Shipa::Framework::Item]
+
+UPD:
+{
+    "StackId": "arn:aws:cloudformation:eu-west-1:859488020228:stack/shipa/2ff12150-571e-11ec-bb72-0250966f7939"
+}
+
+
 ```
 
+```bash
+$ aws cloudformation describe-type --type-name "Shipa::Framework::Item" --type RESOURCE
+
+{
+"Arn": "arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item/00000001",
+"Type": "RESOURCE",
+"TypeName": "Shipa::Framework::Item",
+"DefaultVersionId": "00000001",
+"IsDefaultVersion": true,
+"Description": "An example resource schema demonstrating some basic constructs and validation rules.",
+"Schema": "{\n    \"typeName\": \"Shipa::Framework::Item\",\n    \"description\": \"An example resource schema demonstrating some basic constructs and validation rules.\",\n    \"properties\": {\n        \"Name\": {\n            \"description\": \"Shipa framework name\",\n            \"type\": \"string\"\n        },\n        \"ShipaHost\": {\n            \"description\": \"Shipa server host\",\n            \"type\": \"string\"\n        },\n        \"ShipaToken\": {\n            \"description\": \"Shipa access token\",\n            \"type\": \"string\"\n        }\n    },\n    \"additionalProperties\": false,\n    \"createOnlyProperties\": [\n        \"/properties/Name\"\n    ],\n    \"primaryIdentifier\": [\n        \"/properties/Name\"\n    ],\n    \"required\": [\n        \"ShipaHost\",\n        \"ShipaToken\"\n    ]\n}\n",
+"ProvisioningType": "NON_PROVISIONABLE",
+"DeprecatedStatus": "LIVE",
+"LoggingConfig": {
+"LogRoleArn": "arn:aws:iam::859488020228:role/CloudFormationManagedUplo-LogAndMetricsDeliveryRol-F4BKOU761DJ5",
+"LogGroupName": "shipa-framework-item-logs"
+},
+"Visibility": "PRIVATE",
+"LastUpdated": "2021-12-07T05:16:42.851000+00:00",
+"TimeCreated": "2021-12-07T05:16:42.851000+00:00"
+}
+
+```
+
+
+Describe stack
+
+```bash
+$ aws cloudformation describe-stacks --region eu-west-1
+
+
+ "Stacks": [
+        {
+            "StackId": "arn:aws:cloudformation:eu-west-1:859488020228:stack/shipa/2ff12150-571e-11ec-bb72-0250966f7939",
+            "StackName": "shipa",
+            "Description": "Shipa stack",
+            "CreationTime": "2021-12-07T17:51:51.606000+00:00",
+            "DeletionTime": "2021-12-07T17:51:59.382000+00:00",
+            "RollbackConfiguration": {},
+            "StackStatus": "ROLLBACK_COMPLETE",
+            "DisableRollback": false,
+            "NotificationARNs": [],
+            "Tags": [],
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            }
+        },
+
+```

@@ -25,5 +25,22 @@
     "required": [
         "ShipaHost",
         "ShipaToken"
-    ]
+    ],
+    "handlers": {
+        "create": {
+            "permissions": [""]
+        },
+        "read": {
+            "permissions": [""]
+        },
+        "update": {
+            "permissions": [""]
+        },
+        "delete": {
+            "permissions": [""]
+        },
+        "list": {
+            "permissions": [""]
+        }
+    }
 }
