@@ -1,0 +1,29 @@
+{
+    "typeName": "Shipa::Framework::Item",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "properties": {
+        "Name": {
+            "description": "Shipa framework name",
+            "type": "string"
+        },
+        "ShipaHost": {
+            "description": "Shipa server host",
+            "type": "string"
+        },
+        "ShipaToken": {
+            "description": "Shipa access token",
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "createOnlyProperties": [
+        "/properties/Name"
+    ],
+    "primaryIdentifier": [
+        "/properties/Name"
+    ],
+    "required": [
+        "ShipaHost",
+        "ShipaToken"
+    ]
+}

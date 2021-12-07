@@ -1,0 +1,3 @@
+aws-sam-translator==1.42.0
+cloudformation-cli==0.2.22
+cloudformation-cli-go-plugin==2.0.4
