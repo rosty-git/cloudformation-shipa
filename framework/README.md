@@ -25,3 +25,67 @@ To re-generate code after updating JSON schema
   cfn generate
 ```
    
+Submit
+
+```bash
+$ cfn submit -v --region eu-west-1
+
+Validating your resource specification...
+Explicitly specify value for tagging
+Resource schema is valid.
+Validating your resource schema...
+Packaging Go project
+Creating CloudFormationManagedUploadInfrastructure
+CloudFormationManagedUploadInfrastructure stack was successfully created
+Successfully submitted type. Waiting for registration with token 'a8ecadb8-3dcb-4e68-be9c-dbc85f375e57' to complete.
+Registration complete.
+{'ProgressStatus': 'COMPLETE', 'Description': 'Deployment is currently in DEPLOY_STAGE of status COMPLETED; ', 'TypeArn': 'arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item', 'TypeVersionArn': 'arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item/00000001', 'ResponseMetadata': {'RequestId': 'a615398c-06af-4138-99b5-5a90ee5fdeb9', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': 'a615398c-06af-4138-99b5-5a90ee5fdeb9', 'content-type': 'text/xml', 'content-length': '679', 'date': 'Tue, 07 Dec 2021 05:16:44 GMT'}, 'RetryAttempts': 0}}
+```
+
+List versions
+```bash
+$ aws cloudformation list-type-versions \
+  --type "RESOURCE" \
+  --type-name "Shipa::Framework::Item"
+  
+{
+    "TypeVersionSummaries": [
+        {
+            "Type": "RESOURCE",
+            "TypeName": "Shipa::Framework::Item",
+            "VersionId": "00000001",
+            "IsDefaultVersion": true,
+            "Arn": "arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item/00000001",
+            "TimeCreated": "2021-12-07T05:16:42.851000+00:00",
+            "Description": "An example resource schema demonstrating some basic constructs and validation rules."
+        }
+    ]
+}
+
+```
+
+Describe registration type
+```bash
+$ aws cloudformation describe-type-registration \
+--registration-token a8ecadb8-3dcb-4e68-be9c-dbc85f375e57
+
+{
+    "ProgressStatus": "COMPLETE",
+    "Description": "Deployment is currently in DEPLOY_STAGE of status COMPLETED; ",
+    "TypeArn": "arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item",
+    "TypeVersionArn": "arn:aws:cloudformation:eu-west-1:859488020228:type/resource/Shipa-Framework-Item/00000001"
+}
+
+```
+
+
+Provision the resource in a CloudFormation stack (FAILING)
+```bash
+$ aws cloudformation create-stack --region eu-west-1 \
+  --template-body "file://stack.json" \
+  --stack-name "shipa"
+  
+  
+An error occurred (ValidationError) when calling the CreateStack operation: Template format error: Unrecognized resource types: [Shipa::Framework::Item]
+```
+
