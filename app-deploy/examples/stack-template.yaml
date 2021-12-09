@@ -1,8 +1,12 @@
 Resources:
-  MyShipaApp:
+  MyShipaAppDeploy:
     Type: Shipa::AppDeploy::Item
     Properties:
-      App: my-aws-app
+      App: bulletin
       Image: docker.io/shipasoftware/bulletinboard:1.0
+      Port: 8000
+#      Steps: 2
+#      StepWeight: 1
+#      StepInterval: 3m
       ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
       ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

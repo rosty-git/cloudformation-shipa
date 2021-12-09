@@ -4,7 +4,7 @@ Congratulations on starting development!
 
 Next steps:
 
-1. Populate the JSON schema describing your resource, `shipa-application-item.json`
+1. Populate the JSON schema describing your resource, `shipa-appDeploy-item.json`
 2. The RPDK will automatically generate the correct resource model from the
    schema whenever the project is built via Make.
    You can also do this manually with the following command: `cfn-cli generate`
@@ -42,7 +42,7 @@ Set default version
 $ aws cloudformation set-type-default-version \
   --type "RESOURCE" \
   --type-name "Shipa::AppDeploy::Item" \
-  --version-id "00000007"
+  --version-id "00000002"
 ```
 
 Deregister version
@@ -77,7 +77,7 @@ $ aws cloudformation describe-stacks --region eu-west-1
 
 List stack events
 ```bash
-$ aws cloudformation describe-stack-events --stack-name shipa-app-deploy > events.log
+$ aws cloudformation describe-stack-events --stack-name shipa-app-deploy > events.log1
 ```
 
 Create secret

@@ -10,6 +10,37 @@
             "description": "Application docker image",
             "type": "string"
         },
+        "PrivateImage": {
+            "description": "Private docker image for application",
+            "type": "boolean"
+        },
+        "RegistryUser": {
+            "description": "Private docker registry user",
+            "type": "string"
+        },
+        "RegistrySecret": {
+            "description": "Private docker registry secret",
+            "type": "string"
+        },
+        "Steps": {
+            "type": "integer"
+        },
+        "StepWeight": {
+            "type": "integer"
+        },
+        "StepInterval": {
+            "description": "A duration string. Valid time units are \"ns\", \"us\", \"ms\", \"s\", \"m\", \"h\"",
+            "type": "string"
+        },
+        "Port": {
+            "type": "integer"
+        },
+        "Detach": {
+            "type": "boolean"
+        },
+        "Message": {
+            "type": "string"
+        },
 
         "ShipaHost": {
             "description": "Shipa server host",

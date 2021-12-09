@@ -10,6 +10,46 @@ import (
 	"github.com/rostislavgit/cloudformation-shipa/app-deploy/internal/shipa"
 )
 
+func optionalBool(val *bool) bool {
+	if val != nil {
+		return *val
+	}
+
+	return false
+}
+
+func optionalString(val *string) string {
+	if val != nil {
+		return *val
+	}
+
+	return ""
+}
+
+func optionalInt(val *int) int64 {
+	if val != nil {
+		return int64(*val)
+	}
+
+	return 0
+}
+
+func convertModel(currentModel *Model) *shipa.AppDeploy {
+	return &shipa.AppDeploy{
+		App:            *currentModel.App,
+		Image:          *currentModel.Image,
+		PrivateImage:   optionalBool(currentModel.PrivateImage),
+		RegistryUser:   optionalString(currentModel.RegistryUser),
+		RegistrySecret: optionalString(currentModel.RegistrySecret),
+		Steps:          optionalInt(currentModel.Steps),
+		StepWeight:     optionalInt(currentModel.StepWeight),
+		StepInterval:   optionalString(currentModel.StepInterval),
+		Port:           optionalInt(currentModel.Port),
+		Detach:         optionalBool(currentModel.Detach),
+		Message:        optionalString(currentModel.Message),
+	}
+}
+
 // Create handles the Create event from the Cloudformation service.
 func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler.ProgressEvent, error) {
 	client, err := shipa.NewClient(*currentModel.ShipaHost, *currentModel.ShipaToken)
@@ -23,13 +63,9 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	appDeploy := &shipa.AppDeploy{
-		App:      *currentModel.App,
-		Image: *currentModel.Image,
-	}
-
-	raw, _ := json.Marshal(appDeploy)
-	err = client.DeployApp(context.Background(), appDeploy)
+	payload := convertModel(currentModel)
+	raw, _ := json.Marshal(payload)
+	err = client.DeployApp(context.Background(), payload)
 	if err != nil {
 		return handler.ProgressEvent{}, fmt.Errorf("ERR: %w. Payload: %s", err, string(raw))
 	}
@@ -54,7 +90,7 @@ func Read(req handler.Request, prevModel *Model, currentModel *Model) (handler.P
 	}
 
 	if len(deployments) > 0 {
-		last := deployments[len(deployments) - 1]
+		last := deployments[len(deployments)-1]
 		currentModel.Image = &last.Image
 	}
 
@@ -78,13 +114,9 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	appDeploy := &shipa.AppDeploy{
-		App:      *currentModel.App,
-		Image: *currentModel.Image,
-	}
-
-	raw, _ := json.Marshal(appDeploy)
-	err = client.DeployApp(context.Background(), appDeploy)
+	payload := convertModel(currentModel)
+	raw, _ := json.Marshal(payload)
+	err = client.DeployApp(context.Background(), payload)
 	if err != nil {
 		return handler.ProgressEvent{}, fmt.Errorf("ERR: %w. Payload: %s", err, string(raw))
 	}
