@@ -1,0 +1,8 @@
+Resources:
+  MyShipaApp:
+    Type: Shipa::AppDeploy::Item
+    Properties:
+      App: my-aws-app
+      Image: docker.io/shipasoftware/bulletinboard:1.0
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

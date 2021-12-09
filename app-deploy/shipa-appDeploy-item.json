@@ -1,0 +1,52 @@
+{
+    "typeName": "Shipa::AppDeploy::Item",
+    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+    "properties": {
+        "App": {
+            "description": "Shipa application name",
+            "type": "string"
+        },
+        "Image": {
+            "description": "Application docker image",
+            "type": "string"
+        },
+
+        "ShipaHost": {
+            "description": "Shipa server host",
+            "type": "string"
+        },
+        "ShipaToken": {
+            "description": "Shipa access token",
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "createOnlyProperties": [
+        "/properties/App",
+        "/properties/Image"
+    ],
+    "primaryIdentifier": [
+        "/properties/App"
+    ],
+    "required": [
+        "ShipaHost",
+        "ShipaToken"
+    ],
+    "handlers": {
+        "create": {
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        },
+        "read": {
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        },
+        "update": {
+            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        },
+        "delete": {
+            "permissions": [""]
+        },
+        "list": {
+            "permissions": [""]
+        }
+    }
+}
