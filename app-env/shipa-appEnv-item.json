@@ -1,0 +1,101 @@
+{
+  "typeName": "Shipa::AppEnv::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "Env": {
+      "description": "A key-value pair to associate with a resource.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The name for the env var"
+        },
+        "Value": {
+          "type": "string",
+          "description": "The value for the env var"
+        }
+      },
+      "required": [
+        "Name",
+        "Value"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "App": {
+      "description": "Shipa application name",
+      "type": "string"
+    },
+    "Envs": {
+      "description": "An array of key-value env pairs to apply to this application.",
+      "type": "array",
+      "uniqueItems": true,
+      "insertionOrder": false,
+      "items": {
+        "$ref": "#/definitions/Env"
+      }
+    },
+    "Norestart": {
+      "description": "Application norestart flag",
+      "type": "boolean"
+    },
+    "Private": {
+      "description": "Application private env flag",
+      "type": "boolean"
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/App",
+    "/properties/Envs"
+  ],
+  "primaryIdentifier": [
+    "/properties/App"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
+}

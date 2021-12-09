@@ -1,0 +1,14 @@
+Resources:
+  MyShipaAppEnv:
+    Type: Shipa::AppEnv::Item
+    Properties:
+      App: my-aws-app
+      Envs:
+        - Name: AWS_ENV1
+          Value: aws-value-1
+        - Name: AWS_ENV2
+          Value: aws-value-2
+      Norestart: true
+      Private: false
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'
