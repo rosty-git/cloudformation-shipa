@@ -1,0 +1,21 @@
+.idea
+
+# python cache
+.pytest_cache
+
+# macOS
+.DS_Store
+._*
+
+# our logs
+rpdk.log*
+events.log*
+
+#compiled file
+bin/
+
+#vender
+vender/
+
+# contains credentials
+sam-tests/

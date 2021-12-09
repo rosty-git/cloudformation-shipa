@@ -1,0 +1,18 @@
+Resources:
+  MyShipaNetworkPolicy:
+    Type: Shipa::NetworkPolicy::Item
+    Properties:
+      App: my-aws-app
+      Ingress:
+        PolicyMode: allow-custom-rules-only
+        CustomRules:
+          - ID: gateway
+            Enabled: true
+            Description: gateway block test
+            AllowedFrameworks:
+              - my-aws-framework
+      Egress:
+        PolicyMode: allow-all
+      RestartApp: false
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

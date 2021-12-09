@@ -1,0 +1,126 @@
+{
+  "typeName": "Shipa::NetworkPolicy::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "NetworkPolicyRule": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "AllowedFrameworks": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPolicyConfig": {
+      "type": "object",
+      "properties": {
+        "PolicyMode": {
+          "type": "string"
+        },
+        "CustomRules": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPolicyRule"
+          }
+        },
+        "ShipaRules": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPolicyRule"
+          }
+        },
+        "ShipaRulesEnabled": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "App": {
+      "description": "Shipa application name",
+      "type": "string"
+    },
+    "Ingress": {
+      "$ref": "#/definitions/NetworkPolicyConfig"
+    },
+    "Egress": {
+      "$ref": "#/definitions/NetworkPolicyConfig"
+    },
+    "RestartApp": {
+      "description": "Application restart flag",
+      "type": "boolean"
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/App"
+  ],
+  "primaryIdentifier": [
+    "/properties/App"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
+}
