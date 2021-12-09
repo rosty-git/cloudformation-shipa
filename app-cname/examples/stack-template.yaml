@@ -1,0 +1,9 @@
+Resources:
+  MyShipaAppCname:
+    Type: Shipa::AppCname::Item
+    Properties:
+      App: my-aws-app
+      Cname: my-aws.app
+      Scheme: http
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'
