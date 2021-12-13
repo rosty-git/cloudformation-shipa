@@ -2,6 +2,88 @@
   "typeName": "Shipa::NetworkPolicy::Item",
   "description": "An example resource schema demonstrating some basic constructs and validation rules.",
   "definitions": {
+    "NetworkPort": {
+      "type": "object",
+      "properties": {
+        "Protocol": {
+          "type": "string"
+        },
+        "Port": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Pair": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SelectorExpression": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Operator": {
+          "type": "string"
+        },
+        "Values": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPeerSelector": {
+      "type": "object",
+      "properties": {
+        "MatchLabels": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/Pair"
+          }
+        },
+        "MatchExpressions": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/SelectorExpression"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPeer": {
+      "type": "object",
+      "properties": {
+        "PodSelector": {
+          "$ref": "#/definitions/NetworkPeerSelector"
+        },
+        "NamespaceSelector": {
+          "$ref": "#/definitions/NetworkPeerSelector"
+        },
+        "IPBlock": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "NetworkPolicyRule": {
       "type": "object",
       "properties": {
@@ -13,6 +95,27 @@
         },
         "Description": {
           "type": "string"
+        },
+        "Ports": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPort"
+          }
+        },
+        "Peers": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPeer"
+          }
+        },
+        "AllowedApps": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
         },
         "AllowedFrameworks": {
           "type": "array",

@@ -11,6 +11,9 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "<a href="#id" title="ID">ID</a>" : <i>String</i>,
     "<a href="#enabled" title="Enabled">Enabled</a>" : <i>Boolean</i>,
     "<a href="#description" title="Description">Description</a>" : <i>String</i>,
+    "<a href="#ports" title="Ports">Ports</a>" : <i>[ <a href="networkport.md">NetworkPort</a>, ... ]</i>,
+    "<a href="#peers" title="Peers">Peers</a>" : <i>[ <a href="networkpeer.md">NetworkPeer</a>, ... ]</i>,
+    "<a href="#allowedapps" title="AllowedApps">AllowedApps</a>" : <i>[ String, ... ]</i>,
     "<a href="#allowedframeworks" title="AllowedFrameworks">AllowedFrameworks</a>" : <i>[ String, ... ]</i>
 }
 </pre>
@@ -21,6 +24,12 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <a href="#id" title="ID">ID</a>: <i>String</i>
 <a href="#enabled" title="Enabled">Enabled</a>: <i>Boolean</i>
 <a href="#description" title="Description">Description</a>: <i>String</i>
+<a href="#ports" title="Ports">Ports</a>: <i>
+      - <a href="networkport.md">NetworkPort</a></i>
+<a href="#peers" title="Peers">Peers</a>: <i>
+      - <a href="networkpeer.md">NetworkPeer</a></i>
+<a href="#allowedapps" title="AllowedApps">AllowedApps</a>: <i>
+      - String</i>
 <a href="#allowedframeworks" title="AllowedFrameworks">AllowedFrameworks</a>: <i>
       - String</i>
 </pre>
@@ -48,6 +57,30 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 _Required_: No
 
 _Type_: String
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Ports
+
+_Required_: No
+
+_Type_: List of <a href="networkport.md">NetworkPort</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Peers
+
+_Required_: No
+
+_Type_: List of <a href="networkpeer.md">NetworkPeer</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### AllowedApps
+
+_Required_: No
+
+_Type_: List of String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
