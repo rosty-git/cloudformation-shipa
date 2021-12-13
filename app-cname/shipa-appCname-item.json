@@ -12,7 +12,11 @@
         },
         "Scheme": {
             "description": "Application cname scheme type: http/https",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "http",
+                "https"
+            ]
         },
 
         "ShipaHost": {

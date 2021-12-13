@@ -42,7 +42,7 @@ Set default version
 $ aws cloudformation set-type-default-version \
   --type "RESOURCE" \
   --type-name "Shipa::AppCname::Item" \
-  --version-id "00000003"
+  --version-id "00000004"
 ```
 
 Deregister version
