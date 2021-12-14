@@ -1,0 +1,22 @@
+.idea
+
+# macOS
+.DS_Store
+._*
+
+# our logs
+rpdk.log*
+
+#compiled file
+bin/
+
+#vender
+vender/
+
+# contains credentials
+sam-tests/
+examples/
+!examples/stack-template.yaml
+
+
+example-shipa-framework-item.json

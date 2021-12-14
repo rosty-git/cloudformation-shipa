@@ -1,0 +1,162 @@
+{
+  "typeName": "Shipa::Cluster::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "IngressController": {
+      "type": "object",
+      "properties": {
+        "IngressIP": {
+          "type": "string"
+        },
+        "ServiceType": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "HTTPPort": {
+          "type": "integer"
+        },
+        "HTTPSPort": {
+          "type": "integer"
+        },
+        "ProtectedPort": {
+          "type": "integer"
+        },
+        "Debug": {
+          "type": "boolean"
+        },
+        "AcmeEmail": {
+          "type": "string"
+        },
+        "AcmeServer": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Framework": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ClusterResources": {
+      "type": "object",
+      "properties": {
+        "Frameworks": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/Framework"
+          }
+        },
+        "IngressControllers": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/IngressController"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+   "ClusterEndpoint": {
+     "type": "object",
+     "properties": {
+       "Addresses": {
+         "type": "array",
+         "insertionOrder": true,
+         "items": {
+           "type": "string"
+         }
+       },
+       "Certificate": {
+         "type": "string"
+       },
+       "ClientCertificate": {
+         "type": "string"
+       },
+       "ClientKey": {
+         "type": "string"
+       },
+       "Token": {
+         "type": "string"
+       },
+       "Username": {
+         "type": "string"
+       },
+       "Password": {
+         "type": "string"
+       }
+     },
+     "additionalProperties": false
+   }
+  },
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "Endpoint": {
+      "$ref": "#/definitions/ClusterEndpoint"
+    },
+    "Resources": {
+      "$ref": "#/definitions/ClusterResources"
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "primaryIdentifier": [
+    "/properties/Name"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
+}

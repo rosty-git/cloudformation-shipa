@@ -7,6 +7,7 @@ build:
 	cd application && make build
 	cd framework && make build
 	cd network-policy && make build
+	cd cluster && make build
 
 submit:
 	cd app-cname && make submit
@@ -15,3 +16,4 @@ submit:
 	cd application && make submit
 	cd framework && make submit
 	cd network-policy && make submit
+	cd cluster && make submit
