@@ -17,13 +17,8 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	app := &shipa.App{
-		Name:      *currentModel.Name,
-		TeamOwner: *currentModel.Teamowner,
-		Pool:      *currentModel.Framework,
-	}
-
-	_, err = client.GetApp(context.Background(), *currentModel.Name)
+	app := convertModel(currentModel)
+	_, err = client.GetApp(context.Background(), app.Name)
 	// app not exists
 	if err != nil {
 		raw, _ := json.Marshal(app)
@@ -66,9 +61,18 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
+	var planName string
+	if currentModel.Plan != nil {
+		planName = optionalString(currentModel.Plan.Name)
+	}
+
 	app := &shipa.UpdateAppRequest{
-		TeamOwner: *currentModel.Teamowner,
-		Pool:      *currentModel.Framework,
+		Pool:        optionalString(currentModel.Framework),
+		TeamOwner:   optionalString(currentModel.Teamowner),
+		Description: optionalString(currentModel.Description),
+		Plan:        planName,
+		Platform:    optionalString(currentModel.Platform),
+		Tags:        currentModel.Tags,
 	}
 
 	err = client.UpdateApp(context.Background(), *currentModel.Name, app)

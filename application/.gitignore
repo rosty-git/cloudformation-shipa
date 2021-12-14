@@ -6,6 +6,7 @@
 
 # our logs
 rpdk.log*
+events.log*
 
 #compiled file
 bin/

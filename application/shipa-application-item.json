@@ -1,56 +1,293 @@
 {
-    "typeName": "Shipa::Application::Item",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "properties": {
-        "Name": {
-            "description": "Shipa application name",
-            "type": "string"
+  "typeName": "Shipa::Application::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "Scheme": {
+          "type": "string"
         },
-        "Teamowner": {
-            "description": "Shipa application teamowner",
-            "type": "string"
+        "Host": {
+          "type": "string"
         },
-        "Framework": {
-            "description": "Shipa application framework",
-            "type": "string"
+        "Opaque": {
+          "type": "string"
         },
-        "ShipaHost": {
-            "description": "Shipa server host",
-            "type": "string"
+        "User": {
+          "type": "string"
         },
-        "ShipaToken": {
-            "description": "Shipa access token",
-            "type": "string"
+        "Path": {
+          "type": "string"
+        },
+        "RawPath": {
+          "type": "string"
+        },
+        "ForceQuery": {
+          "type": "boolean"
+        },
+        "RawQuery": {
+          "type": "string"
+        },
+        "Fragment": {
+          "type": "string"
+        },
+        "RawFragment": {
+          "type": "string"
         }
+      },
+      "additionalProperties": false
     },
-    "additionalProperties": false,
-    "createOnlyProperties": [
-        "/properties/Name"
-    ],
-    "primaryIdentifier": [
-        "/properties/Name"
-    ],
-    "required": [
-        "ShipaHost",
-        "ShipaToken",
-        "Teamowner",
-        "Framework"
-    ],
-    "handlers": {
-        "create": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+    "Unit": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
         },
-        "read": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        "Name": {
+          "type": "string"
         },
-        "update": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        "AppName": {
+          "type": "string"
         },
-        "delete": {
-            "permissions": [""]
+        "ProcessName": {
+          "type": "string"
         },
-        "list": {
-            "permissions": [""]
+        "Type": {
+          "type": "string"
+        },
+        "IP": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "Org": {
+          "type": "string"
+        },
+        "HostAddr": {
+          "type": "string"
+        },
+        "HostPort": {
+          "type": "string"
+        },
+        "Address": {
+          "$ref": "#/definitions/Address"
         }
+      },
+      "additionalProperties": false
+    },
+    "Entrypoint": {
+      "type": "object",
+      "properties": {
+        "Cname": {
+          "type": "string"
+        },
+        "Scheme": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Router": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "Default": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Lock": {
+      "type": "object",
+      "properties": {
+        "Locked": {
+          "type": "boolean"
+        },
+        "Reason": {
+          "type": "string"
+        },
+        "Owner": {
+          "type": "string"
+        },
+        "AcquireDate": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer"
+        },
+        "Swap": {
+          "type": "integer"
+        },
+        "CPUShare": {
+          "type": "integer"
+        },
+        "Default": {
+          "type": "boolean"
+        },
+        "Public": {
+          "type": "boolean"
+        },
+        "Org": {
+          "type": "string"
+        },
+        "Teams": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     }
+  },
+  "properties": {
+    "Name": {
+      "description": "Shipa application name",
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Teamowner": {
+      "description": "Shipa application teamowner",
+      "type": "string"
+    },
+    "Framework": {
+      "description": "Shipa application framework",
+      "type": "string"
+    },
+    "Plan": {
+      "$ref": "#/definitions/Plan"
+    },
+    "Units": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "$ref": "#/definitions/Unit"
+      }
+    },
+    "Cname": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "IP": {
+      "type": "string"
+    },
+    "Org": {
+      "type": "string"
+    },
+    "Entrypoints": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "$ref": "#/definitions/Entrypoint"
+      }
+    },
+    "Routers": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "$ref": "#/definitions/Router"
+      }
+    },
+    "Lock": {
+      "$ref": "#/definitions/Lock"
+    },
+    "Tags": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "Platform": {
+      "type": "string"
+    },
+    "Status": {
+      "type": "string"
+    },
+    "Error": {
+      "type": "string"
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "primaryIdentifier": [
+    "/properties/Name"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken",
+    "Teamowner",
+    "Framework"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
 }

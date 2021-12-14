@@ -2,8 +2,8 @@ Resources:
   MyShipaApp:
     Type: Shipa::Application::Item
     Properties:
-      Name: my-aws-app
+      Name: my-aws-app-4
       Teamowner: shipa-team
       Framework: oke-dev-fw
-      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaHost: '{{resolve:secretsmanager:ShipaHost}}'
       ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'
