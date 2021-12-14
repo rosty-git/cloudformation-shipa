@@ -1,46 +1,418 @@
 {
-    "typeName": "Shipa::Framework::Item",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "properties": {
-        "Name": {
-            "description": "Shipa framework name",
-            "type": "string"
+  "typeName": "Shipa::Framework::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "Pair": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
         },
-        "ShipaHost": {
-            "description": "Shipa server host",
-            "type": "string"
-        },
-        "ShipaToken": {
-            "description": "Shipa access token",
-            "type": "string"
+        "Value": {
+          "type": "string"
         }
+      },
+      "additionalProperties": false
     },
-    "additionalProperties": false,
-    "createOnlyProperties": [
-        "/properties/Name"
-    ],
-    "primaryIdentifier": [
-        "/properties/Name"
-    ],
-    "required": [
-        "ShipaHost",
-        "ShipaToken"
-    ],
-    "handlers": {
-        "create": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+    "PoolAutoScale": {
+      "type": "object",
+      "properties": {
+        "MaxContainer": {
+          "type": "integer"
         },
-        "read": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        "MaxMemory": {
+          "type": "integer"
         },
-        "update": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        "ScaleDown": {
+          "type": "number"
         },
-        "delete": {
-            "permissions": [""]
-        },
-        "list": {
-            "permissions": [""]
+        "Rebalance": {
+          "type": "boolean"
         }
+      },
+      "additionalProperties": false
+    },
+    "PoolNode": {
+      "type": "object",
+      "properties": {
+        "Drivers": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "AutoScale": {
+          "$ref": "#/definitions/PoolAutoScale"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SelectorExpression": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Operator": {
+          "type": "string"
+        },
+        "Values": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPeerSelector": {
+      "type": "object",
+      "properties": {
+        "MatchLabels": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/Pair"
+          }
+        },
+        "MatchExpressions": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/SelectorExpression"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPeer": {
+      "type": "object",
+      "properties": {
+        "PodSelector": {
+          "$ref": "#/definitions/NetworkPeerSelector"
+        },
+        "NamespaceSelector": {
+          "$ref": "#/definitions/NetworkPeerSelector"
+        },
+        "IPBlock": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPort": {
+      "type": "object",
+      "properties": {
+        "Protocol": {
+          "type": "string"
+        },
+        "Port": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPolicyRule": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Ports": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPort"
+          }
+        },
+        "Peers": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPeer"
+          }
+        },
+        "AllowedApps": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "AllowedPools": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetworkPolicyConfig": {
+      "type": "object",
+      "properties": {
+        "PolicyMode": {
+          "type": "string"
+        },
+        "CustomRules": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPolicyRule"
+          }
+        },
+        "ShipaRules": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/NetworkPolicyRule"
+          }
+        },
+        "ShipaRulesEnabled": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolNetworkPolicy": {
+      "type": "object",
+      "properties": {
+        "Ingress": {
+          "$ref": "#/definitions/NetworkPolicyConfig"
+        },
+        "Egress": {
+          "$ref": "#/definitions/NetworkPolicyConfig"
+        },
+        "DisableAppPolicies": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolContainerPolicy": {
+      "type": "object",
+      "properties": {
+        "AllowedHosts": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolAppQuota": {
+      "type": "object",
+      "properties": {
+        "Limit": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolServiceAccess": {
+      "type": "object",
+      "properties": {
+        "Append": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "Blacklist": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolSecurity": {
+      "type": "object",
+      "properties": {
+        "DisableScan": {
+          "type": "boolean"
+        },
+        "ScanPlatformLayers": {
+          "type": "boolean"
+        },
+        "IgnoreComponents": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "IgnoreCVES": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolPlan": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolSetup": {
+      "type": "object",
+      "properties": {
+        "Default": {
+          "type": "boolean"
+        },
+        "Public": {
+          "type": "boolean"
+        },
+        "Provisioner": {
+          "type": "string"
+        },
+        "KubernetesNamespace": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolGeneral": {
+      "type": "object",
+      "properties": {
+        "Setup": {
+          "$ref": "#/definitions/PoolSetup"
+        },
+        "Plan": {
+          "$ref": "#/definitions/PoolPlan"
+        },
+        "Security": {
+          "$ref": "#/definitions/PoolSecurity"
+        },
+        "Access": {
+          "$ref": "#/definitions/PoolServiceAccess"
+        },
+        "Services": {
+          "$ref": "#/definitions/PoolServiceAccess"
+        },
+        "Router": {
+          "type": "string"
+        },
+        "Volumes": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "AppQuota": {
+          "$ref": "#/definitions/PoolAppQuota"
+        },
+        "ContainerPolicy": {
+          "$ref": "#/definitions/PoolContainerPolicy"
+        },
+        "NetworkPolicy": {
+          "$ref": "#/definitions/PoolNetworkPolicy"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PoolResources": {
+      "type": "object",
+      "properties": {
+        "General": {
+          "$ref": "#/definitions/PoolGeneral"
+        },
+        "Node": {
+          "$ref": "#/definitions/PoolNode"
+        }
+      },
+      "additionalProperties": false
     }
+  },
+  "properties": {
+    "Name": {
+      "description": "Shipa framework name",
+      "type": "string"
+    },
+    "Resources": {
+      "$ref": "#/definitions/PoolResources"
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "primaryIdentifier": [
+    "/properties/Name"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
 }

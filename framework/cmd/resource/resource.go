@@ -34,7 +34,7 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	framework := defaultPoolConfig(*currentModel.Name)
+	framework := convertModel(currentModel)
 	raw, _ := json.Marshal(framework)
 	err = client.CreatePoolConfig(context.Background(), framework)
 	if err != nil {

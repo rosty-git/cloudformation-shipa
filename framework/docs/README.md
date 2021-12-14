@@ -13,6 +13,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Type" : "Shipa::Framework::Item",
     "Properties" : {
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
+        "<a href="#resources" title="Resources">Resources</a>" : <i><a href="poolresources.md">PoolResources</a></i>,
         "<a href="#shipahost" title="ShipaHost">ShipaHost</a>" : <i>String</i>,
         "<a href="#shipatoken" title="ShipaToken">ShipaToken</a>" : <i>String</i>
     }
@@ -25,6 +26,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 Type: Shipa::Framework::Item
 Properties:
     <a href="#name" title="Name">Name</a>: <i>String</i>
+    <a href="#resources" title="Resources">Resources</a>: <i><a href="poolresources.md">PoolResources</a></i>
     <a href="#shipahost" title="ShipaHost">ShipaHost</a>: <i>String</i>
     <a href="#shipatoken" title="ShipaToken">ShipaToken</a>: <i>String</i>
 </pre>
@@ -40,6 +42,14 @@ _Required_: No
 _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
+
+#### Resources
+
+_Required_: No
+
+_Type_: <a href="poolresources.md">PoolResources</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### ShipaHost
 
