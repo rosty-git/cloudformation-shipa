@@ -10,23 +10,6 @@ import (
 	"github.com/rostislavgit/cloudformation-shipa/framework/internal/shipa"
 )
 
-func defaultPoolConfig(name string) *shipa.PoolConfig {
-	return &shipa.PoolConfig{
-		Name: name,
-		Resources: &shipa.PoolResources{
-			General: &shipa.PoolGeneral{
-				Setup: &shipa.PoolSetup{
-					Provisioner: "kubernetes",
-				},
-				Router: "traefik",
-				AppQuota: &shipa.PoolAppQuota{
-					Limit: "10",
-				},
-			},
-		},
-	}
-}
-
 // Create handles the Create event from the Cloudformation service.
 func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler.ProgressEvent, error) {
 	client, err := shipa.NewClient(*currentModel.ShipaHost, *currentModel.ShipaToken)
@@ -74,7 +57,8 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	err = client.UpdatePoolConfig(context.Background(), defaultPoolConfig(*currentModel.Name))
+	framework := convertModel(currentModel)
+	err = client.UpdatePoolConfig(context.Background(), framework)
 	if err != nil {
 		return handler.ProgressEvent{}, err
 	}
