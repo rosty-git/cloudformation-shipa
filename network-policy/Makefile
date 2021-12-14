@@ -1,4 +1,4 @@
-.PHONY: build test clean
+.PHONY: build test clean submit
 
 build:
 	make -f makebuild  # this runs build steps required by the cfn cli
@@ -9,3 +9,6 @@ test:
 
 clean:
 	rm -rf bin
+
+submit:
+	cfn submit

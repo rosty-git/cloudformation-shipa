@@ -15,3 +15,10 @@ Install dependencies
 
     pip install -r requirements.txt
     
+Build all types
+
+    make build
+
+Submit all types
+
+    make submit
