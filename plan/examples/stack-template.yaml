@@ -1,0 +1,11 @@
+Resources:
+  MyShipaPlan:
+    Type: Shipa::Plan::Item
+    Properties:
+      Name: my-aws-plan
+      Teams: ["dev-team"]
+      CPUShare: 8
+      Memory: 2G
+      Swap: 32M
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

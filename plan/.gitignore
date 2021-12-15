@@ -1,0 +1,12 @@
+.idea
+
+# macOS
+.DS_Store
+._*
+
+# our logs
+rpdk.log*
+*.log*
+
+#compiled file
+bin/

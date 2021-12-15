@@ -1,0 +1,86 @@
+{
+  "typeName": "Shipa::Plan::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "Memory": {
+      "type": "string"
+    },
+    "Swap": {
+      "type": "string"
+    },
+    "CPUShare": {
+      "type": "integer"
+    },
+    "Default": {
+      "type": "boolean"
+    },
+    "Public": {
+      "type": "boolean"
+    },
+    "Org": {
+      "type": "string"
+    },
+    "Teams": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "primaryIdentifier": [
+    "/properties/Name"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
+}
