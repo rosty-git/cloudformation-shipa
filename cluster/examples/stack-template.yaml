@@ -1,0 +1,15 @@
+Resources:
+  MyShipaCluster:
+    Type: Shipa::Cluster::Item
+    Properties:
+      Name: my-aws-cluster
+      Endpoint:
+        Addresses:
+          - https://132.226.117.181:6443
+        Certificate: '{{resolve:secretsmanager:ShipaCaCert}}'
+        Token: '{{resolve:secretsmanager:ShipaClusterToken}}'
+      Resources:
+        Frameworks:
+          - Name: project2
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

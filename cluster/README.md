@@ -1,10 +1,10 @@
-# Shipa::Framework::Item
+# Shipa::Cluster::Item
 
 Congratulations on starting development!
 
 Next steps:
 
-1. Populate the JSON schema describing your resource, `shipa-framework-item.json`
+1. Populate the JSON schema describing your resource, `shipa-cluster-item.json`
 2. The RPDK will automatically generate the correct resource model from the
    schema whenever the project is built via Make.
    You can also do this manually with the following command: `cfn-cli generate`
@@ -34,21 +34,21 @@ $ cfn submit -v --region eu-west-1
 
 List versions
 ```bash
-$ aws cloudformation list-type-versions --type "RESOURCE" --type-name "Shipa::Framework::Item"
+$ aws cloudformation list-type-versions --type "RESOURCE" --type-name "Shipa::Cluster::Item"
 ```
 
 Set default version
 ```bash
 $ aws cloudformation set-type-default-version \
   --type "RESOURCE" \
-  --type-name "Shipa::Framework::Item" \
+  --type-name "Shipa::Cluster::Item" \
   --version-id "00000007"
 ```
 
 Deregister version
 ```bash
 $ aws cloudformation deregister-type --type "RESOURCE" \
-  --type-name "Shipa::Framework::Item" \
+  --type-name "Shipa::Cluster::Item" \
   --version-id "00000001"
 ```
 
@@ -58,20 +58,21 @@ $ aws cloudformation describe-type-registration \
 --registration-token a8ecadb8-3dcb-4e68-be9c-dbc85f375e57
 ```
 
-Provision the resource in a CloudFormation stack (FAILING)
+Provision the resource in a CloudFormation stack
 ```bash
 $ aws cloudformation create-stack --region eu-west-1 \
-  --template-body "file://stack.json" \
-  --stack-name "shipa-3"
+  --template-body "file://examples/stack-template.yaml" \
+  --stack-name "shipa-cluster"
+```
 
-aws cloudformation create-stack --region eu-west-1 \
-  --template-body "file://stack-template.yaml" \
-  --stack-name "shipa-4"
+Delete stack
+```bash
+$ aws cloudformation delete-stack --stack-name shipa-cluster
 ```
 
 Describe type
 ```bash
-$ aws cloudformation describe-type --type-name "Shipa::Framework::Item" --type RESOURCE
+$ aws cloudformation describe-type --type-name "Shipa::Cluster::Item" --type RESOURCE
 ```
 
 Describe stack
@@ -81,7 +82,7 @@ $ aws cloudformation describe-stacks --region eu-west-1
 
 List stack events
 ```bash
-$ aws cloudformation describe-stack-events --stack-name shipa > events.log
+$ aws cloudformation describe-stack-events --stack-name shipa-cluster > events.log
 ```
 
 Create secret
