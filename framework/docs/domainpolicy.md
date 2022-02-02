@@ -1,4 +1,4 @@
-# Shipa::Framework::Item PoolAppQuota
+# Shipa::Framework::Item DomainPolicy
 
 ## Syntax
 
@@ -8,23 +8,24 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#limit" title="Limit">Limit</a>" : <i>String</i>
+    "<a href="#allowedcnames" title="AllowedCnames">AllowedCnames</a>" : <i>[ String, ... ]</i>
 }
 </pre>
 
 ### YAML
 
 <pre>
-<a href="#limit" title="Limit">Limit</a>: <i>String</i>
+<a href="#allowedcnames" title="AllowedCnames">AllowedCnames</a>: <i>
+      - String</i>
 </pre>
 
 ## Properties
 
-#### Limit
+#### AllowedCnames
 
 _Required_: No
 
-_Type_: String
+_Type_: List of String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

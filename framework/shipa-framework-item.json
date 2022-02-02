@@ -219,10 +219,81 @@
       },
       "additionalProperties": false
     },
-    "PoolAppQuota": {
+    "NodeSelectors": {
       "type": "object",
       "properties": {
-        "Limit": {
+        "Terms": {
+          "$ref": "#/definitions/NodeSelectorsTerms"
+        },
+        "Strict": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NodeSelectorsTerms": {
+      "type": "object",
+      "properties": {
+        "Environment": {
+          "type": "string"
+        },
+        "OS": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PodAutoScaler": {
+      "type": "object",
+      "properties": {
+        "MinReplicas": {
+          "type": "integer"
+        },
+        "MaxReplicas": {
+          "type": "integer"
+        },
+        "TargetCPUUtilizationPercentage": {
+          "type": "integer"
+        },
+        "DisableAppOverride": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DomainPolicy": {
+      "type": "object",
+      "properties": {
+        "AllowedCnames": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "AppAutoDiscovery": {
+      "type": "object",
+      "properties": {
+        "AppSelector": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "$ref": "#/definitions/AppSelectorLabels"
+          }
+        },
+        "Suffix": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AppSelectorLabels": {
+      "type": "object",
+      "properties": {
+        "Label": {
           "type": "string"
         }
       },
@@ -329,11 +400,20 @@
             "type": "string"
           }
         },
-        "AppQuota": {
-          "$ref": "#/definitions/PoolAppQuota"
-        },
         "ContainerPolicy": {
           "$ref": "#/definitions/PoolContainerPolicy"
+        },
+        "NodeSelectors": {
+          "$ref": "#/definitions/NodeSelectors"
+        },
+        "PodAutoScaler": {
+          "$ref": "#/definitions/PodAutoScaler"
+        },
+        "DomainPolicy": {
+          "$ref": "#/definitions/DomainPolicy"
+        },
+        "AppAutoDiscovery": {
+          "$ref": "#/definitions/AppAutoDiscovery"
         },
         "NetworkPolicy": {
           "$ref": "#/definitions/PoolNetworkPolicy"
