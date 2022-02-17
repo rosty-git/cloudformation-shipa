@@ -1,0 +1,14 @@
+Resources:
+  MyShipaJob:
+    Type: Shipa::Job::Item
+    Properties:
+      Name: my-aws-job
+      Framework: gitops-app-fw
+      Policy:
+        RestartPolicy: Never
+      Containers:
+        - Name: job
+          Image: golang:1.16
+          Command: [ "/bin/bash", "ls", "-l" ]
+      ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
+      ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

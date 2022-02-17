@@ -1,0 +1,132 @@
+{
+  "typeName": "Shipa::Job::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "Policy": {
+      "type": "object",
+      "properties": {
+        "RestartPolicy": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "JobContainer": {
+      "type": "object",
+      "properties": {
+        "Command": {
+          "type": "array",
+          "insertionOrder": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "Image": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "Framework": {
+      "type": "string"
+    },
+    "Containers": {
+      "type": "array",
+      "insertionOrder": true,
+      "items": {
+        "$ref": "#/definitions/JobContainer"
+      }
+    },
+    "Policy": {
+      "$ref": "#/definitions/Policy"
+    },
+    "BackoffLimit": {
+      "type": "integer"
+    },
+    "Completions": {
+      "type": "integer"
+    },
+    "Parallelism": {
+      "type": "integer"
+    },
+    "Suspend": {
+      "type": "boolean"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Team": {
+      "type": "string"
+    },
+    "Type": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "string"
+    },
+
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "primaryIdentifier": [
+    "/properties/Name"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken",
+    "Framework",
+    "Containers",
+    "Policy"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
+}

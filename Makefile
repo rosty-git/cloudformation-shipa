@@ -9,6 +9,7 @@ build:
 	cd network-policy && make build
 	cd cluster && make build
 	cd plan && make build
+	cd job && make build
 
 submit:
 	cd app-cname && make submit
@@ -19,3 +20,4 @@ submit:
 	cd network-policy && make submit
 	cd cluster && make submit
 	cd plan && make submit
+	cd job && make submit
