@@ -11,31 +11,21 @@ import (
 	"github.com/pkg/errors"
 )
 
+// CreateAppRequest - request to create an App
+type CreateAppRequest struct {
+	Name      string   `json:"name" yaml:"name,omitempty"`
+	Pool      string   `json:"pool,omitempty" yaml:"framework,omitempty"`
+	TeamOwner string   `json:"teamOwner,omitempty" yaml:"teamOwner,omitempty"`
+	Plan      string   `json:"plan,omitempty" yaml:"plan,omitempty"`
+	Tags      []string `json:"tags,omitempty" yaml:"tags,omitempty"`
+}
+
 // UpdateAppRequest - request for App update
 type UpdateAppRequest struct {
 	Pool        string   `json:"pool,omitempty"`
-	TeamOwner   string   `json:"teamowner,omitempty"`
-	Description string   `json:"description,omitempty"`
+	TeamOwner   string   `json:"teamOwner,omitempty"`
 	Plan        string   `json:"plan,omitempty"`
-	Platform    string   `json:"platform,omitempty"`
 	Tags        []string `json:"tags,omitempty"`
-}
-
-// NewUpdateAppRequest - converts App object to UpdateAppRequest
-func NewUpdateAppRequest(a *App) *UpdateAppRequest {
-	var plan string
-	if a.Plan != nil {
-		plan = a.Plan.Name
-	}
-
-	return &UpdateAppRequest{
-		Pool:        a.Pool,
-		TeamOwner:   a.TeamOwner,
-		Description: a.Description,
-		Plan:        plan,
-		Platform:    a.Platform,
-		Tags:        a.Tags,
-	}
 }
 
 // App - represents shipa app
@@ -177,7 +167,7 @@ func (c *Client) GetApp(ctx context.Context, name string) (*App, error) {
 }
 
 // CreateApp - creates app
-func (c *Client) CreateApp(ctx context.Context, app *App) error {
+func (c *Client) CreateApp(ctx context.Context, app *CreateAppRequest) error {
 	return c.post(ctx, app, apiApps)
 }
 

@@ -4,6 +4,8 @@ Resources:
     Properties:
       Name: my-aws-app-4
       Teamowner: shipa-team
-      Framework: oke-dev-fw
+      Framework: dev
+      Plan: dev
+      Tags: ["dev"]
       ShipaHost: '{{resolve:secretsmanager:ShipaHost}}'
       ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

@@ -61,17 +61,10 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	var planName string
-	if currentModel.Plan != nil {
-		planName = optionalString(currentModel.Plan.Name)
-	}
-
 	app := &shipa.UpdateAppRequest{
 		Pool:        optionalString(currentModel.Framework),
 		TeamOwner:   optionalString(currentModel.Teamowner),
-		Description: optionalString(currentModel.Description),
-		Plan:        planName,
-		Platform:    optionalString(currentModel.Platform),
+		Plan:        optionalString(currentModel.Plan),
 		Tags:        currentModel.Tags,
 	}
 

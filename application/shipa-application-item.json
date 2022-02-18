@@ -1,174 +1,9 @@
 {
   "typeName": "Shipa::Application::Item",
   "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-  "definitions": {
-    "Address": {
-      "type": "object",
-      "properties": {
-        "Scheme": {
-          "type": "string"
-        },
-        "Host": {
-          "type": "string"
-        },
-        "Opaque": {
-          "type": "string"
-        },
-        "User": {
-          "type": "string"
-        },
-        "Path": {
-          "type": "string"
-        },
-        "RawPath": {
-          "type": "string"
-        },
-        "ForceQuery": {
-          "type": "boolean"
-        },
-        "RawQuery": {
-          "type": "string"
-        },
-        "Fragment": {
-          "type": "string"
-        },
-        "RawFragment": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Unit": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string"
-        },
-        "Name": {
-          "type": "string"
-        },
-        "AppName": {
-          "type": "string"
-        },
-        "ProcessName": {
-          "type": "string"
-        },
-        "Type": {
-          "type": "string"
-        },
-        "IP": {
-          "type": "string"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
-        },
-        "Org": {
-          "type": "string"
-        },
-        "HostAddr": {
-          "type": "string"
-        },
-        "HostPort": {
-          "type": "string"
-        },
-        "Address": {
-          "$ref": "#/definitions/Address"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Entrypoint": {
-      "type": "object",
-      "properties": {
-        "Cname": {
-          "type": "string"
-        },
-        "Scheme": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Router": {
-      "type": "object",
-      "properties": {
-        "Name": {
-          "type": "string"
-        },
-        "Type": {
-          "type": "string"
-        },
-        "Address": {
-          "type": "string"
-        },
-        "Default": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Lock": {
-      "type": "object",
-      "properties": {
-        "Locked": {
-          "type": "boolean"
-        },
-        "Reason": {
-          "type": "string"
-        },
-        "Owner": {
-          "type": "string"
-        },
-        "AcquireDate": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-    "Plan": {
-      "type": "object",
-      "properties": {
-        "Name": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer"
-        },
-        "Swap": {
-          "type": "integer"
-        },
-        "CPUShare": {
-          "type": "integer"
-        },
-        "Default": {
-          "type": "boolean"
-        },
-        "Public": {
-          "type": "boolean"
-        },
-        "Org": {
-          "type": "string"
-        },
-        "Teams": {
-          "type": "array",
-          "insertionOrder": true,
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "additionalProperties": false
-    }
-  },
   "properties": {
     "Name": {
       "description": "Shipa application name",
-      "type": "string"
-    },
-    "Description": {
       "type": "string"
     },
     "Teamowner": {
@@ -180,44 +15,7 @@
       "type": "string"
     },
     "Plan": {
-      "$ref": "#/definitions/Plan"
-    },
-    "Units": {
-      "type": "array",
-      "insertionOrder": true,
-      "items": {
-        "$ref": "#/definitions/Unit"
-      }
-    },
-    "Cname": {
-      "type": "array",
-      "insertionOrder": true,
-      "items": {
-        "type": "string"
-      }
-    },
-    "IP": {
       "type": "string"
-    },
-    "Org": {
-      "type": "string"
-    },
-    "Entrypoints": {
-      "type": "array",
-      "insertionOrder": true,
-      "items": {
-        "$ref": "#/definitions/Entrypoint"
-      }
-    },
-    "Routers": {
-      "type": "array",
-      "insertionOrder": true,
-      "items": {
-        "$ref": "#/definitions/Router"
-      }
-    },
-    "Lock": {
-      "$ref": "#/definitions/Lock"
     },
     "Tags": {
       "type": "array",
@@ -225,15 +23,6 @@
       "items": {
         "type": "string"
       }
-    },
-    "Platform": {
-      "type": "string"
-    },
-    "Status": {
-      "type": "string"
-    },
-    "Error": {
-      "type": "string"
     },
     "ShipaHost": {
       "description": "Shipa server host",
@@ -255,7 +44,9 @@
     "ShipaHost",
     "ShipaToken",
     "Teamowner",
-    "Framework"
+    "Framework",
+    "Plan",
+    "Tags"
   ],
   "handlers": {
     "create": {
