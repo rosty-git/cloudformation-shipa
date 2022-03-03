@@ -113,10 +113,9 @@ func Delete(req handler.Request, prevModel *Model, currentModel *Model) (handler
 		return handler.ProgressEvent{}, err
 	}
 
-	appCname := &shipa.AppCname{
-		App:    *currentModel.App,
-		Cname:  *currentModel.Cname,
-		Scheme: *currentModel.Scheme,
+	appCname := &shipa.DeleteCnameRequest{
+		App:   *currentModel.App,
+		Cname: []string{*currentModel.Cname},
 	}
 
 	err = client.DeleteAppCname(context.Background(), appCname)
