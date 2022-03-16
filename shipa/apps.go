@@ -24,10 +24,10 @@ type CreateAppRequest struct {
 
 // UpdateAppRequest - request for App update
 type UpdateAppRequest struct {
-	Pool        string   `json:"pool,omitempty"`
-	TeamOwner   string   `json:"teamOwner,omitempty"`
-	Plan        string   `json:"plan,omitempty"`
-	Tags        []string `json:"tags,omitempty"`
+	Pool      string   `json:"pool,omitempty"`
+	TeamOwner string   `json:"teamOwner,omitempty"`
+	Plan      string   `json:"plan,omitempty"`
+	Tags      []string `json:"tags,omitempty"`
 }
 
 // App - represents shipa app
@@ -231,15 +231,15 @@ func (c *Client) DeleteAppEnvs(ctx context.Context, req *CreateAppEnv) error {
 
 // AppCname - represents app cname
 type AppCname struct {
-	App       string `json:"-" yaml:"app"`
-	Cname     string `json:"cname" yaml:"cname"`
-	Scheme    string `json:"scheme"`
-	Encrypted bool   `json:"-" yaml:"encrypted"`
+	App     string `json:"-" yaml:"app"`
+	Cname   string `json:"cname" yaml:"cname"`
+	Scheme  string `json:"scheme"`
+	Encrypt bool   `json:"-"`
 }
 
 func (a *AppCname) setScheme() {
 	a.Scheme = "http"
-	if a.Encrypted {
+	if a.Encrypt {
 		a.Scheme = "https"
 	}
 }

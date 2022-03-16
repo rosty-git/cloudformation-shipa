@@ -6,7 +6,7 @@ package resource
 type Model struct {
 	App        *string `json:",omitempty"`
 	Cname      *string `json:",omitempty"`
-	Scheme     *string `json:",omitempty"`
+	Encrypt    *bool   `json:",omitempty"`
 	ShipaHost  *string `json:",omitempty"`
 	ShipaToken *string `json:",omitempty"`
 }

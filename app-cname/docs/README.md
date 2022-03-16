@@ -14,7 +14,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Properties" : {
         "<a href="#app" title="App">App</a>" : <i>String</i>,
         "<a href="#cname" title="Cname">Cname</a>" : <i>String</i>,
-        "<a href="#scheme" title="Scheme">Scheme</a>" : <i>String</i>,
+        "<a href="#encrypt" title="Encrypt">Encrypt</a>" : <i>Boolean</i>,
         "<a href="#shipahost" title="ShipaHost">ShipaHost</a>" : <i>String</i>,
         "<a href="#shipatoken" title="ShipaToken">ShipaToken</a>" : <i>String</i>
     }
@@ -28,7 +28,7 @@ Type: Shipa::AppCname::Item
 Properties:
     <a href="#app" title="App">App</a>: <i>String</i>
     <a href="#cname" title="Cname">Cname</a>: <i>String</i>
-    <a href="#scheme" title="Scheme">Scheme</a>: <i>String</i>
+    <a href="#encrypt" title="Encrypt">Encrypt</a>: <i>Boolean</i>
     <a href="#shipahost" title="ShipaHost">ShipaHost</a>: <i>String</i>
     <a href="#shipatoken" title="ShipaToken">ShipaToken</a>: <i>String</i>
 </pre>
@@ -55,15 +55,13 @@ _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
-#### Scheme
+#### Encrypt
 
 Application cname scheme type: http/https
 
 _Required_: No
 
-_Type_: String
-
-_Allowed Values_: <code>http</code> | <code>https</code>
+_Type_: Boolean
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 

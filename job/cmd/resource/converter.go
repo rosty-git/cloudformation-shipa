@@ -1,6 +1,6 @@
 package resource
 
-import "github.com/rostislavgit/cloudformation-shipa/job/internal/shipa"
+import "github.com/rostislavgit/cloudformation-shipa/shipa"
 
 func convertModel(currentModel *Model) *shipa.JobCreateRequest {
 	return &shipa.JobCreateRequest{

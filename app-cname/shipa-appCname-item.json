@@ -10,13 +10,9 @@
             "description": "Application cname",
             "type": "string"
         },
-        "Scheme": {
+        "Encrypt": {
             "description": "Application cname scheme type: http/https",
-            "type": "string",
-            "enum": [
-                "http",
-                "https"
-            ]
+            "type": "boolean"
         },
 
         "ShipaHost": {
@@ -32,7 +28,7 @@
     "createOnlyProperties": [
         "/properties/App",
         "/properties/Cname",
-        "/properties/Scheme"
+        "/properties/Encrypt"
     ],
     "primaryIdentifier": [
         "/properties/App"

@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/aws-cloudformation/cloudformation-cli-go-plugin/cfn/handler"
-	"github.com/rostislavgit/cloudformation-shipa/application/internal/shipa"
+	"github.com/rostislavgit/cloudformation-shipa/shipa"
 )
 
 // Create handles the Create event from the Cloudformation service.
@@ -62,10 +62,10 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 	}
 
 	app := &shipa.UpdateAppRequest{
-		Pool:        optionalString(currentModel.Framework),
-		TeamOwner:   optionalString(currentModel.Teamowner),
-		Plan:        optionalString(currentModel.Plan),
-		Tags:        currentModel.Tags,
+		Pool:      optionalString(currentModel.Framework),
+		TeamOwner: optionalString(currentModel.Teamowner),
+		Plan:      optionalString(currentModel.Plan),
+		Tags:      currentModel.Tags,
 	}
 
 	err = client.UpdateApp(context.Background(), *currentModel.Name, app)

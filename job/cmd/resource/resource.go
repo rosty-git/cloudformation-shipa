@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/aws-cloudformation/cloudformation-cli-go-plugin/cfn/handler"
-	"github.com/rostislavgit/cloudformation-shipa/job/internal/shipa"
+	"github.com/rostislavgit/cloudformation-shipa/shipa"
 )
 
 // Create handles the Create event from the Cloudformation service.

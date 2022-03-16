@@ -4,6 +4,6 @@ Resources:
     Properties:
       App: my-aws-app
       Cname: my-aws.app
-      Scheme: http
+      Encrypt: false
       ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
       ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'

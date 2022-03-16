@@ -1,6 +1,6 @@
 package resource
 
-import "github.com/rostislavgit/cloudformation-shipa/framework/internal/shipa"
+import "github.com/rostislavgit/cloudformation-shipa/shipa"
 
 func convertModel(currentModel *Model) *shipa.PoolConfig {
 	return &shipa.PoolConfig{

@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/aws-cloudformation/cloudformation-cli-go-plugin/cfn/handler"
-	"github.com/rostislavgit/cloudformation-shipa/app-cname/internal/shipa"
+	"github.com/rostislavgit/cloudformation-shipa/shipa"
 )
 
 // Create handles the Create event from the Cloudformation service.
@@ -24,9 +24,9 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
 	}
 
 	appCname := &shipa.AppCname{
-		App:    *currentModel.App,
-		Cname:  *currentModel.Cname,
-		Scheme: *currentModel.Scheme,
+		App:     *currentModel.App,
+		Cname:   *currentModel.Cname,
+		Encrypt: *currentModel.Encrypt,
 	}
 
 	raw, _ := json.Marshal(appCname)
@@ -58,7 +58,8 @@ func Read(req handler.Request, prevModel *Model, currentModel *Model) (handler.P
 	if len(app.Entrypoints) > 0 {
 		last := app.Entrypoints[len(app.Entrypoints)-1]
 		currentModel.Cname = &last.Cname
-		currentModel.Scheme = &last.Scheme
+		encrypt := last.Scheme == "https"
+		currentModel.Encrypt = &encrypt
 	}
 
 	return handler.ProgressEvent{
@@ -82,9 +83,9 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
 	}
 
 	appCname := &shipa.AppCname{
-		App:    *currentModel.App,
-		Cname:  *currentModel.Cname,
-		Scheme: *currentModel.Scheme,
+		App:     *currentModel.App,
+		Cname:   *currentModel.Cname,
+		Encrypt: *currentModel.Encrypt,
 	}
 
 	raw, _ := json.Marshal(appCname)
