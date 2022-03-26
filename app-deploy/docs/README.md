@@ -14,15 +14,12 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Properties" : {
         "<a href="#app" title="App">App</a>" : <i>String</i>,
         "<a href="#image" title="Image">Image</a>" : <i>String</i>,
-        "<a href="#privateimage" title="PrivateImage">PrivateImage</a>" : <i>Boolean</i>,
-        "<a href="#registryuser" title="RegistryUser">RegistryUser</a>" : <i>String</i>,
-        "<a href="#registrysecret" title="RegistrySecret">RegistrySecret</a>" : <i>String</i>,
-        "<a href="#steps" title="Steps">Steps</a>" : <i>Integer</i>,
-        "<a href="#stepweight" title="StepWeight">StepWeight</a>" : <i>Integer</i>,
-        "<a href="#stepinterval" title="StepInterval">StepInterval</a>" : <i>String</i>,
-        "<a href="#port" title="Port">Port</a>" : <i>Integer</i>,
-        "<a href="#detach" title="Detach">Detach</a>" : <i>Boolean</i>,
-        "<a href="#message" title="Message">Message</a>" : <i>String</i>,
+        "<a href="#appconfig" title="AppConfig">AppConfig</a>" : <i><a href="appconfig.md">AppConfig</a></i>,
+        "<a href="#canarysettings" title="CanarySettings">CanarySettings</a>" : <i><a href="canarysettings.md">CanarySettings</a></i>,
+        "<a href="#podautoscaler" title="PodAutoScaler">PodAutoScaler</a>" : <i><a href="podautoscaler.md">PodAutoScaler</a></i>,
+        "<a href="#port" title="Port">Port</a>" : <i><a href="port.md">Port</a></i>,
+        "<a href="#registry" title="Registry">Registry</a>" : <i><a href="registry.md">Registry</a></i>,
+        "<a href="#volumes" title="Volumes">Volumes</a>" : <i>[ <a href="volume.md">Volume</a>, ... ]</i>,
         "<a href="#shipahost" title="ShipaHost">ShipaHost</a>" : <i>String</i>,
         "<a href="#shipatoken" title="ShipaToken">ShipaToken</a>" : <i>String</i>
     }
@@ -36,15 +33,13 @@ Type: Shipa::AppDeploy::Item
 Properties:
     <a href="#app" title="App">App</a>: <i>String</i>
     <a href="#image" title="Image">Image</a>: <i>String</i>
-    <a href="#privateimage" title="PrivateImage">PrivateImage</a>: <i>Boolean</i>
-    <a href="#registryuser" title="RegistryUser">RegistryUser</a>: <i>String</i>
-    <a href="#registrysecret" title="RegistrySecret">RegistrySecret</a>: <i>String</i>
-    <a href="#steps" title="Steps">Steps</a>: <i>Integer</i>
-    <a href="#stepweight" title="StepWeight">StepWeight</a>: <i>Integer</i>
-    <a href="#stepinterval" title="StepInterval">StepInterval</a>: <i>String</i>
-    <a href="#port" title="Port">Port</a>: <i>Integer</i>
-    <a href="#detach" title="Detach">Detach</a>: <i>Boolean</i>
-    <a href="#message" title="Message">Message</a>: <i>String</i>
+    <a href="#appconfig" title="AppConfig">AppConfig</a>: <i><a href="appconfig.md">AppConfig</a></i>
+    <a href="#canarysettings" title="CanarySettings">CanarySettings</a>: <i><a href="canarysettings.md">CanarySettings</a></i>
+    <a href="#podautoscaler" title="PodAutoScaler">PodAutoScaler</a>: <i><a href="podautoscaler.md">PodAutoScaler</a></i>
+    <a href="#port" title="Port">Port</a>: <i><a href="port.md">Port</a></i>
+    <a href="#registry" title="Registry">Registry</a>: <i><a href="registry.md">Registry</a></i>
+    <a href="#volumes" title="Volumes">Volumes</a>: <i>
+      - <a href="volume.md">Volume</a></i>
     <a href="#shipahost" title="ShipaHost">ShipaHost</a>: <i>String</i>
     <a href="#shipatoken" title="ShipaToken">ShipaToken</a>: <i>String</i>
 </pre>
@@ -71,59 +66,27 @@ _Type_: String
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
-#### PrivateImage
-
-Private docker image for application
+#### AppConfig
 
 _Required_: No
 
-_Type_: Boolean
+_Type_: <a href="appconfig.md">AppConfig</a>
+
+_Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
+
+#### CanarySettings
+
+_Required_: No
+
+_Type_: <a href="canarysettings.md">CanarySettings</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### RegistryUser
-
-Private docker registry user
+#### PodAutoScaler
 
 _Required_: No
 
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### RegistrySecret
-
-Private docker registry secret
-
-_Required_: No
-
-_Type_: String
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### Steps
-
-_Required_: No
-
-_Type_: Integer
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### StepWeight
-
-_Required_: No
-
-_Type_: Integer
-
-_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
-
-#### StepInterval
-
-A duration string. Valid time units are "ns", "us", "ms", "s", "m", "h"
-
-_Required_: No
-
-_Type_: String
+_Type_: <a href="podautoscaler.md">PodAutoScaler</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
@@ -131,23 +94,25 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 _Required_: No
 
-_Type_: Integer
+_Type_: <a href="port.md">Port</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Detach
+#### Registry
 
 _Required_: No
 
-_Type_: Boolean
+_Type_: <a href="registry.md">Registry</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Message
+#### Volumes
+
+Volumes settings
 
 _Required_: No
 
-_Type_: String
+_Type_: List of <a href="volume.md">Volume</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 

@@ -1,83 +1,270 @@
 {
-    "typeName": "Shipa::AppDeploy::Item",
-    "description": "An example resource schema demonstrating some basic constructs and validation rules.",
-    "properties": {
-        "App": {
-            "description": "Shipa application name",
+  "typeName": "Shipa::AppDeploy::Item",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "definitions": {
+    "AppConfig": {
+      "type": "object",
+      "properties": {
+        "Team": {
+          "type": "string",
+          "description": "The team name"
+        },
+        "Framework": {
+          "type": "string",
+          "description": "The framework name"
+        },
+        "Description": {
+          "type": "string",
+          "description": "The app description"
+        },
+        "Env": {
+          "description": "The app env vars",
+          "type": "array",
+          "insertionOrder": true,
+          "uniqueItems": true,
+          "items": {
             "type": "string"
+          }
         },
-        "Image": {
-            "description": "Application docker image",
+        "Plan": {
+          "type": "string",
+          "description": "The app plan"
+        },
+        "Router": {
+          "type": "string",
+          "description": "The app router"
+        },
+        "Tags": {
+          "description": "The app tags",
+          "type": "array",
+          "insertionOrder": true,
+          "uniqueItems": true,
+          "items": {
             "type": "string"
-        },
-        "PrivateImage": {
-            "description": "Private docker image for application",
-            "type": "boolean"
-        },
-        "RegistryUser": {
-            "description": "Private docker registry user",
-            "type": "string"
-        },
-        "RegistrySecret": {
-            "description": "Private docker registry secret",
-            "type": "string"
-        },
-        "Steps": {
-            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "Team",
+        "Framework"
+      ],
+      "additionalProperties": false
+    },
+    "CanarySettings": {
+      "type": "object",
+      "properties": {
+        "StepInterval": {
+          "type": "integer",
+          "description": "Step interval (seconds)."
         },
         "StepWeight": {
-            "type": "integer"
+          "type": "integer",
+          "description": "Step weight"
         },
-        "StepInterval": {
-            "description": "A duration string. Valid time units are \"ns\", \"us\", \"ms\", \"s\", \"m\", \"h\"",
-            "type": "string"
-        },
-        "Port": {
-            "type": "integer"
-        },
-        "Detach": {
-            "type": "boolean"
-        },
-        "Message": {
-            "type": "string"
-        },
-
-        "ShipaHost": {
-            "description": "Shipa server host",
-            "type": "string"
-        },
-        "ShipaToken": {
-            "description": "Shipa access token",
-            "type": "string"
+        "Steps": {
+          "type": "integer",
+          "description": "Steps"
         }
+      },
+      "required": [
+        "StepInterval",
+        "StepWeight",
+        "Steps"
+      ],
+      "additionalProperties": false
     },
-    "additionalProperties": false,
-    "createOnlyProperties": [
-        "/properties/App",
-        "/properties/Image"
-    ],
-    "primaryIdentifier": [
-        "/properties/App"
-    ],
-    "required": [
-        "ShipaHost",
-        "ShipaToken"
-    ],
-    "handlers": {
-        "create": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+    "PodAutoScaler": {
+      "type": "object",
+      "properties": {
+        "MaxReplicas": {
+          "type": "integer",
+          "description": "Max replicas"
         },
-        "read": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
+        "MinReplicas": {
+          "type": "integer",
+          "description": "Min replicas"
         },
-        "update": {
-            "permissions": ["ssm:GetParameter", "secretsmanager:GetSecretValue", "kms:Decrypt"]
-        },
-        "delete": {
-            "permissions": [""]
-        },
-        "list": {
-            "permissions": [""]
+        "TargetCPUUtilizationPercentage": {
+          "type": "integer",
+          "description": "Target CPU utilization percentage"
         }
+      },
+      "required": [
+        "MaxReplicas",
+        "MinReplicas",
+        "TargetCPUUtilizationPercentage"
+      ],
+      "additionalProperties": false
+    },
+    "Port": {
+      "type": "object",
+      "properties": {
+        "Number": {
+          "type": "integer",
+          "description": "Port number"
+        },
+        "Protocol": {
+          "type": "string",
+          "description": "Port protocol"
+        }
+      },
+      "required": [
+        "Number",
+        "Protocol"
+      ],
+      "additionalProperties": false
+    },
+    "Registry": {
+      "type": "object",
+      "properties": {
+        "User": {
+          "type": "string",
+          "description": "Registry user name"
+        },
+        "Secret": {
+          "type": "string",
+          "description": "Registry secret"
+        }
+      },
+      "required": [
+        "User",
+        "Secret"
+      ],
+      "additionalProperties": false
+    },
+    "VolumeOptions": {
+      "type": "object",
+      "properties": {
+        "Prop1": {
+          "type": "string",
+          "description": "Additional property 1"
+        },
+        "Prop2": {
+          "type": "string",
+          "description": "Additional property 2"
+        },
+        "Prop3": {
+          "type": "string",
+          "description": "Additional property 3"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Volume": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "Volume name"
+        },
+        "Path": {
+          "type": "string",
+          "description": "Volume path"
+        },
+        "Options": {
+          "description": "Volume options",
+          "$ref": "#/definitions/VolumeOptions"
+        }
+      },
+      "required": [
+        "Name",
+        "Path"
+      ],
+      "additionalProperties": false
     }
+  },
+  "properties": {
+    "App": {
+      "description": "Shipa application name",
+      "type": "string"
+    },
+    "Image": {
+      "description": "Application docker image",
+      "type": "string"
+    },
+    "AppConfig": {
+      "description": "Application configuration",
+      "$ref": "#/definitions/AppConfig"
+    },
+    "CanarySettings": {
+      "description": "Application canary settings",
+      "$ref": "#/definitions/CanarySettings"
+    },
+    "PodAutoScaler": {
+      "description": "Application pod auto-scaler settings",
+      "$ref": "#/definitions/PodAutoScaler"
+    },
+    "Port": {
+      "description": "Application port settings",
+      "$ref": "#/definitions/Port"
+    },
+    "Registry": {
+      "description": "Docker registry settings",
+      "$ref": "#/definitions/Registry"
+    },
+    "Volumes": {
+      "description": "Volumes settings",
+      "type": "array",
+      "uniqueItems": true,
+      "insertionOrder": true,
+      "items": {
+        "$ref": "#/definitions/Volume"
+      }
+    },
+
+    "ShipaHost": {
+      "description": "Shipa server host",
+      "type": "string"
+    },
+    "ShipaToken": {
+      "description": "Shipa access token",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "createOnlyProperties": [
+    "/properties/App",
+    "/properties/Image",
+    "/properties/AppConfig"
+  ],
+  "primaryIdentifier": [
+    "/properties/App"
+  ],
+  "required": [
+    "ShipaHost",
+    "ShipaToken"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "ssm:GetParameter",
+        "secretsmanager:GetSecretValue",
+        "kms:Decrypt"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        ""
+      ]
+    },
+    "list": {
+      "permissions": [
+        ""
+      ]
+    }
+  }
 }

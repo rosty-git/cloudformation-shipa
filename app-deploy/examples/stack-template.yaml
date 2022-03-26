@@ -4,9 +4,12 @@ Resources:
     Properties:
       App: bulletin
       Image: docker.io/shipasoftware/bulletinboard:1.0
-      Port: 8000
-#      Steps: 2
-#      StepWeight: 1
-#      StepInterval: 3m
+      AppConfig:
+        Team: shipa-team
+        Framework: project1
+      Port:
+        Number: 8000
+        Protocol: TCP
+
       ShipaHost: '{{resolve:ssm:ShipaHost:1}}'
       ShipaToken: '{{resolve:secretsmanager:ShipaToken}}'
