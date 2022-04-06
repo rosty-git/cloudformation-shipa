@@ -9,8 +9,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 {
     "<a href="#name" title="Name">Name</a>" : <i>String</i>,
-    "<a href="#path" title="Path">Path</a>" : <i>String</i>,
-    "<a href="#options" title="Options">Options</a>" : <i><a href="volumeoptions.md">VolumeOptions</a></i>
+    "<a href="#mountpath" title="MountPath">MountPath</a>" : <i>String</i>,
+    "<a href="#mountoptions" title="MountOptions">MountOptions</a>" : <i><a href="volumeoptions.md">VolumeOptions</a></i>
 }
 </pre>
 
@@ -18,8 +18,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 <a href="#name" title="Name">Name</a>: <i>String</i>
-<a href="#path" title="Path">Path</a>: <i>String</i>
-<a href="#options" title="Options">Options</a>: <i><a href="volumeoptions.md">VolumeOptions</a></i>
+<a href="#mountpath" title="MountPath">MountPath</a>: <i>String</i>
+<a href="#mountoptions" title="MountOptions">MountOptions</a>: <i><a href="volumeoptions.md">VolumeOptions</a></i>
 </pre>
 
 ## Properties
@@ -34,17 +34,17 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Path
+#### MountPath
 
-Volume path
+Volume mount path
 
-_Required_: Yes
+_Required_: No
 
 _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Options
+#### MountOptions
 
 _Required_: No
 

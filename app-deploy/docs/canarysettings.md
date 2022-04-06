@@ -28,7 +28,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 Step interval (seconds).
 
-_Required_: Yes
+_Required_: No
 
 _Type_: Integer
 
@@ -38,7 +38,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 Step weight
 
-_Required_: Yes
+_Required_: No
 
 _Type_: Integer
 
@@ -48,7 +48,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 Steps
 
-_Required_: Yes
+_Required_: No
 
 _Type_: Integer
 

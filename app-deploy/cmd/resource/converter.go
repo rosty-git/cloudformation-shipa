@@ -84,9 +84,14 @@ func convertPort(port *Port) *shipa.AppDeployPort {
 		return nil
 	}
 
+	protocol := optionalString(port.Protocol)
+	if protocol == "" {
+		protocol = "TCP"
+	}
+
 	return &shipa.AppDeployPort{
 		Number:   optionalInt(port.Number),
-		Protocol: optionalString(port.Protocol),
+		Protocol: protocol,
 	}
 }
 
@@ -110,25 +115,25 @@ func convertVolumes(volumes []Volume) (out []*shipa.AppDeployVolume) {
 }
 
 func convertVolume(v Volume) *shipa.AppDeployVolume {
-	if v.Name == nil && v.Path == nil {
+	if v.Name == nil && v.MountPath == nil {
 		return nil
 	}
 
 	return &shipa.AppDeployVolume{
 		Name:    optionalString(v.Name),
-		Path:    optionalString(v.Path),
-		Options: convertVolumeOptions(v.Options),
+		Path:    optionalString(v.MountPath),
+		Options: convertVolumeOptions(v.MountOptions),
 	}
 }
 
 func convertVolumeOptions(options *VolumeOptions) *shipa.VolumeOptions {
-	if options == nil || (options.Prop1 == nil && options.Prop2 == nil && options.Prop3 == nil) {
+	if options == nil {
 		return nil
 	}
 
 	return &shipa.VolumeOptions{
-		Prop1: optionalString(options.Prop1),
-		Prop2: optionalString(options.Prop2),
-		Prop3: optionalString(options.Prop3),
+		Prop1: optionalString(options.AdditionalProp1),
+		Prop2: optionalString(options.AdditionalProp2),
+		Prop3: optionalString(options.AdditionalProp3),
 	}
 }

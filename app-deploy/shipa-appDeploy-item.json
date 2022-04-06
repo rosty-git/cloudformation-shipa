@@ -66,11 +66,6 @@
           "description": "Steps"
         }
       },
-      "required": [
-        "StepInterval",
-        "StepWeight",
-        "Steps"
-      ],
       "additionalProperties": false
     },
     "PodAutoScaler": {
@@ -89,11 +84,6 @@
           "description": "Target CPU utilization percentage"
         }
       },
-      "required": [
-        "MaxReplicas",
-        "MinReplicas",
-        "TargetCPUUtilizationPercentage"
-      ],
       "additionalProperties": false
     },
     "Port": {
@@ -109,8 +99,7 @@
         }
       },
       "required": [
-        "Number",
-        "Protocol"
+        "Number"
       ],
       "additionalProperties": false
     },
@@ -135,15 +124,15 @@
     "VolumeOptions": {
       "type": "object",
       "properties": {
-        "Prop1": {
+        "AdditionalProp1": {
           "type": "string",
           "description": "Additional property 1"
         },
-        "Prop2": {
+        "AdditionalProp2": {
           "type": "string",
           "description": "Additional property 2"
         },
-        "Prop3": {
+        "AdditionalProp3": {
           "type": "string",
           "description": "Additional property 3"
         }
@@ -157,11 +146,11 @@
           "type": "string",
           "description": "Volume name"
         },
-        "Path": {
+        "MountPath": {
           "type": "string",
-          "description": "Volume path"
+          "description": "Volume mount path"
         },
-        "Options": {
+        "MountOptions": {
           "description": "Volume options",
           "$ref": "#/definitions/VolumeOptions"
         }

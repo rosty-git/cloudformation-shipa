@@ -8,23 +8,23 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 
 <pre>
 {
-    "<a href="#prop1" title="Prop1">Prop1</a>" : <i>String</i>,
-    "<a href="#prop2" title="Prop2">Prop2</a>" : <i>String</i>,
-    "<a href="#prop3" title="Prop3">Prop3</a>" : <i>String</i>
+    "<a href="#additionalprop1" title="AdditionalProp1">AdditionalProp1</a>" : <i>String</i>,
+    "<a href="#additionalprop2" title="AdditionalProp2">AdditionalProp2</a>" : <i>String</i>,
+    "<a href="#additionalprop3" title="AdditionalProp3">AdditionalProp3</a>" : <i>String</i>
 }
 </pre>
 
 ### YAML
 
 <pre>
-<a href="#prop1" title="Prop1">Prop1</a>: <i>String</i>
-<a href="#prop2" title="Prop2">Prop2</a>: <i>String</i>
-<a href="#prop3" title="Prop3">Prop3</a>: <i>String</i>
+<a href="#additionalprop1" title="AdditionalProp1">AdditionalProp1</a>: <i>String</i>
+<a href="#additionalprop2" title="AdditionalProp2">AdditionalProp2</a>: <i>String</i>
+<a href="#additionalprop3" title="AdditionalProp3">AdditionalProp3</a>: <i>String</i>
 </pre>
 
 ## Properties
 
-#### Prop1
+#### AdditionalProp1
 
 Additional property 1
 
@@ -34,7 +34,7 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Prop2
+#### AdditionalProp2
 
 Additional property 2
 
@@ -44,7 +44,7 @@ _Type_: String
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
-#### Prop3
+#### AdditionalProp3
 
 Additional property 3
 
